@@ -6,11 +6,10 @@ using UnityEngine;
 /// <summary>
 /// A World class object
 /// </summary>
-public class World {
+public class World : Region {
+       
 
-    
-
-    World()
+    public World(int seed)
     {
 
     }
