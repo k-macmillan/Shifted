@@ -14,6 +14,7 @@ namespace Culture
         GERMAN = 500,
         AFRICAN = 600,
         MIDDLEEAST = 700,
+        WASTELAND = 800,
     }
 
 

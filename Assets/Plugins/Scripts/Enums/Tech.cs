@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Tech
 {
+    /// <summary>
+    /// Tech level of a world. Will not vary between towns in a world
+    /// </summary>
     public enum TechLevel
     {
         ANCIENT,
@@ -12,6 +15,7 @@ namespace Tech
         PREMODERN,
         MODERN,
         FUTURE,
+        WASTELAND,
     }
 }
 
