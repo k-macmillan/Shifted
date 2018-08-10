@@ -9,13 +9,13 @@ namespace Tech
     /// </summary>
     public enum TechLevel
     {
-        ANCIENT,
-        MEDIEVAL,
-        INDUSTRIAL,
-        PREMODERN,
-        MODERN,
-        FUTURE,
-        WASTELAND,
+        ANCIENT = 100,
+        MEDIEVAL = 200,
+        INDUSTRIAL = 300,
+        PREMODERN = 400,
+        MODERN = 500,
+        FUTURE = 600,
+        WASTELAND = 700,
     }
 }
 
