@@ -1,7 +1,14 @@
 ﻿using BuildingStyle;
 
-public class Structure {
+/// <summary>
+/// Structures are built on a LandLot. 
+/// </summary>
+public class Structure : BuildingStyles {
     
+    /// <summary>
+    /// Reference to the land which this structure sits on
+    /// </summary>
+    public LandLot LandLot { get; private set; }
 
     /// <summary>
     /// Floor Area Ratio of the structure to the land...restricted by zoning
@@ -13,9 +20,10 @@ public class Structure {
      */
     private BuildingStyles Styles {get; set;}
 
-    public Structure(Town town)
+    public Structure(Town town, LandLot landLot)
     {
-        Styles = BuildingStyles.Generate(town.TechLevel);
+        LandLot = landLot;
+        Styles = Generate(town.TechLevel);
     }
     
 }
