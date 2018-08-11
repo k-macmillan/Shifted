@@ -11,7 +11,7 @@ public class Town : Region{
     /// </summary>
     public float BuildingDensity { get; set; }
 
-    public Common.Point2 CityCenter { get; set; }
+    public Vector2 CityCenter { get; set; }
 
     /// <summary>
     /// Constructs a Town object based on a World

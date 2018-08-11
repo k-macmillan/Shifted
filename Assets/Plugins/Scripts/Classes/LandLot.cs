@@ -1,5 +1,6 @@
-﻿using Common;
+﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public class LandLot {
@@ -9,14 +10,14 @@ public class LandLot {
     /// <summary>
     /// 2D point that sets the deterministic seed for this piece of land
     /// </summary>
-    public Point2 Origin { get; set; }
+    public Vector2 Origin { get; set; }
 
     // Deterministic Variables
 
     /// <summary>
     /// The anchors for this plot of land to be drawn a-> b-> c-> d->...-> a
     /// </summary>
-    public Point2[] Anchors { get; private set; }
+    public List<Vector2> Anchors { get; private set; }
 
     /// <summary>
     /// Square foot of this LandLot
@@ -33,7 +34,7 @@ public class LandLot {
     /// Constructs a LandLot based on grid location.
     /// </summary>
     /// <param name="origin">"Center" of this LandLot</param>
-    public LandLot(Point2 origin)
+    public LandLot(Vector2 origin)
     {
         Origin = origin;
         SetAnchors();
@@ -58,8 +59,8 @@ public class LandLot {
 
         var points = Anchors;
         
-        SqFt = Math.Abs(points.Take(points.Length - 1)
-           .Select((p, i) => (points[i + 1].X - p.X) * (points[i + 1].Y + p.Y))
+        SqFt = Math.Abs(points.Take(points.Count - 1)
+           .Select((p, i) => (points[i + 1].x - p.x) * (points[i + 1].y + p.y))
            .Sum() / 2);
     }
 

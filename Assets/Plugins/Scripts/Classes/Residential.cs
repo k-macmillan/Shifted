@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using BuildingStyle;
-using Common;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Represents a section of land that is marked for residential use. Can have one or many
@@ -9,10 +7,10 @@ using Common;
 /// </summary>
 public class Residential {
 
-    public Point2[] Anchors { get; private set; }
+    public List<Vector2> Anchors { get; private set; }
     public List<LandLot> LandLots { get; private set; }
 
-    public Residential(Point2 origin)
+    public Residential(Vector2 origin)
     {
         SetResidentialLotStyle();
         BuildLandLots();
