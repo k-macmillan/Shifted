@@ -12,8 +12,12 @@ namespace Weather
         /// Current weather system
         /// </summary>
         public WeatherSystem WeatherSystem { get; private set; }
-        
 
+        public override string ToString()
+        {
+            return "Weather:" +
+                "Weather not built yet";
+        }
     }
 
 
@@ -37,6 +41,8 @@ namespace Weather
         }
 
     }
+
+    
 
     
 }

@@ -64,6 +64,17 @@ public class LandLot {
            .Sum() / 2);
     }
 
-    
+    ///// <summary>
+    ///// Adds two sections of land that are touching on one side. Not bothering to figure this ugly
+    ///// one out until I need it.
+    ///// </summary>
+    ///// <param name="lhs"></param>
+    ///// <param name="rhs"></param>
+    ///// <returns></returns>
+    //public static LandLot operator +(LandLot lhs, LandLot rhs)
+    //{
+        
+    //    return new LandLot();
+    //}
 
 }

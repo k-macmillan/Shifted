@@ -1,4 +1,5 @@
 ﻿
+using System;
 /// <summary>
 /// Represents Flora of a region
 /// </summary>
@@ -14,6 +15,17 @@ public class Flora  {
     public Flora(Weather.Weather weather)
     {
         // Presumaby won't need the weather object after initial setup
+    }
+
+
+    public override string ToString()
+    {
+        string density = String.Format("\nDensity:   {0:f6}", Density);
+        string diversity = String.Format("\nDensity:   {0:f6}", Diversity);
+
+        return "Flora:" +
+            density +
+            diversity;
     }
 
 }

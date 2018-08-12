@@ -11,7 +11,7 @@ public class World : Region {
 
     public World(int seed)
     {
-
+        Debug.Log(this.ToString());
     }
 	
 }
