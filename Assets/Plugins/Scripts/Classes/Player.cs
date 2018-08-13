@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player {
@@ -36,8 +35,7 @@ public class Player {
 
         PlayerSeed = RandomInts[RndIntIndex++];
 
-
-
+        
 
     }
 
