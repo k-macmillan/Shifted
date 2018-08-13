@@ -6,10 +6,9 @@ public class Test : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        World world = new World(0);
+        Player p1 = new Player();
 
-        
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
