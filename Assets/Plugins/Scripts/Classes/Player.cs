@@ -22,7 +22,6 @@ public class Player {
         rndInts = new System.Random(42);
         rndDbls = new System.Random(42);
 
-
         for (int i = 0; i < RandomIntCount; ++i)
         {
             RandomInts[i] = rndInts.Next();
@@ -34,8 +33,6 @@ public class Player {
         }
 
         PlayerSeed = RandomInts[RndIntIndex++];
-
-        
 
     }
 
