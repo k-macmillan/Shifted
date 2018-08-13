@@ -13,7 +13,7 @@ public class Player {
 
     public Int32[] RandomInts { get; private set; }
     public double[] RandomDouble { get; private set; }
-
+    public int PlayerSeed { get; private set; }
 
 
     public Player()
@@ -24,17 +24,20 @@ public class Player {
         rndDbls = new System.Random(42);
 
 
+        for (int i = 0; i < RandomIntCount; ++i)
+        {
+            RandomInts[i] = rndInts.Next();
+        }
+
         for (int i = 0; i < RandomDoubleCount; ++i)
         {
             RandomDouble[i] = rndDbls.NextDouble();
         }
-        
-        for (int i = 0; i < RandomIntCount; ++i)
-        {
-            RandomInts[i] = rndInts.Next();            
-        }
 
-        
+        PlayerSeed = RandomInts[RndIntIndex++];
+
+
+
 
     }
 
