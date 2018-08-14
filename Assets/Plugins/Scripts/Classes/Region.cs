@@ -6,20 +6,8 @@ using UnityEngine;
 /// </summary>
 abstract public class Region {
 
-    public int Seed { get; private set; } = 2;
-
-    /// <summary>
-    /// Population of a region
-    /// </summary>
-    //public UInt64 Population { get; set; } = 7584821144;
-
-    /// <summary>
-    /// Wealth of a region
-    /// </summary>
-    //public UInt64 Wealth { get; set; } = 100000000000000; // 100 trillion...projected 2025 world wealth
-    public Wealth Wealth { get; private set; }
-
-
+    public int Seed { get; private set; } = 42;
+    
     /*  Income is a shifted normal distribution (kind of) with a spike at the highest percentage. I struggled to find the raw data so I could draw 
      *  appropriate standard deviation and distribution representation.
      */
@@ -27,11 +15,6 @@ abstract public class Region {
     /// Median household income
     /// </summary>
     public UInt32 Income { get; set; } = 45000; // https://en.wikipedia.org/wiki/Household_income_in_the_United_States#Household_income_and_demographics (126.22 million households)
-
-    /// <summary>
-    /// How friendly a region is
-    /// </summary>
-    //public Amiability Amiability { get; set; } = Amiability.NEUTRAL;
 
     /// <summary>
     /// Natural resources available to a region
@@ -59,11 +42,23 @@ abstract public class Region {
     public bool NuclearWasteland { get; set; } = false;
 
 
-    // Requires constructing
+    /////////////// Requires constructing ///////////////
 
-    public Population Population { get; private set; }
-
+    /// <summary>
+    /// Amiability of the region
+    /// </summary>
     public Amiability.Amiability Amiability { get; private set; }
+
+    /// <summary>
+    /// Wealth of a region
+    /// </summary>
+    //public UInt64 Wealth { get; set; } = 100000000000000; // 100 trillion...projected 2025 world wealth
+    public Wealth Wealth { get; private set; }
+
+    /// <summary>
+    /// Population of the region
+    /// </summary>
+    public Population Population { get; private set; }
 
     /// <summary>
     /// Racial makeup of this region
@@ -102,10 +97,11 @@ abstract public class Region {
     virtual public void MockInstantiate(UInt64 maxWealth)
     {
         /**** ORDER IS ESSENTIAL ****/
-        TechLevel = Tech.TechLevel.WASTELAND;  // Need to determine how to set this
-        Wealth = new Wealth(Seed, TechLevel, maxWealth);
-        Amiability = new Amiability.Amiability(Seed);
-        Population = new Population(this);          // Has to come after Wealth and Amiability are set because it is dependent on those
+        Amiability = new Amiability.Amiability(Seed);       // Will have a bearing on TechLevel
+        TechLevel = Tech.TechLevel.MODERN;                  // Need to determine how to set this
+        Wealth = new Wealth(Seed, TechLevel, maxWealth);    // Dependent on TechLevel
+        
+        Population = new Population(this);                  // Dependent on Tech, Amiability, and Wealth
 
         RaceMakeup = new RaceMakeup(WorldCulture);
         Weather = new Weather.Weather();
@@ -123,7 +119,6 @@ abstract public class Region {
         string printstr = "Region Information:" +
             pop +
             wealth +
-            "\nWealthWeight:  " + Wealth.Weight +
             income +
             "\nAmiability:    " + Amiability.AmiabilityLevel +
             "\nNatResources:  " + NatResources +

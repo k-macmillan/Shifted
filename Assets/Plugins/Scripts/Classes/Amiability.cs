@@ -36,8 +36,7 @@ namespace Amiability
             uniformRandSeed = new SystemRandomSource(seed);
             binomialRandSeed = new SystemRandomSource(seed);   // Doesn't matter if it's the same seed
             uniformDist = new DiscreteUniform(0, Enum.GetNames(typeof(AmiabilityLevel)).Length - 1, uniformRandSeed);
-            //AmiabilityLevel = (AmiabilityLevel)uniformDist.Sample();
-            AmiabilityLevel = AmiabilityLevel.NEUTRAL;
+            AmiabilityLevel = (AmiabilityLevel)uniformDist.Sample();            
         }
 
         /// <summary>
@@ -92,23 +91,23 @@ namespace Amiability
             {
                 case AmiabilityLevel.HOSTILE:
                     a = 1.0d;
-                    b = 9.0d;
+                    b = 100.0d;
                     break;
                 case AmiabilityLevel.UNFRIENDLY:
                     a = 1.5d;
                     b = 6.0d;
                     break;
                 case AmiabilityLevel.NEUTRAL:
-                    a = 20.0d;
-                    b = 20.0d;
+                    a = 10.0d;
+                    b = 10.0d;
                     break;
                 case AmiabilityLevel.FRIENDLY:
                     a = 2.0d;
                     b = 1.5d;
                     break;
                 case AmiabilityLevel.VERYFRIENDLY:
-                    a = 7.0d;
-                    b = 1.5d;                    
+                    a = 5.0d;
+                    b = 1.0d;                    
                     break;
                 default:
                     a = 0.0001d;
