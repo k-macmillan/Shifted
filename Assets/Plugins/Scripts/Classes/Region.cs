@@ -78,6 +78,11 @@ abstract public class Region {
     /// </summary>
     public Fauna Fauna { get; set; }
 
+    /// <summary>
+    /// Represents the slice value [0, 2 * Pi)
+    /// </summary>
+    public double Slice { get; set; }
+
     public Region()
     {
         MockInstantiate();

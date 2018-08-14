@@ -9,13 +9,14 @@ namespace Tech
     /// </summary>
     public enum TechLevel
     {
-        ANCIENT = 100,
-        MEDIEVAL = 200,
-        INDUSTRIAL = 300,
-        PREMODERN = 400,
-        MODERN = 500,
-        FUTURE = 600,
-        WASTELAND = 700,
+        ANCIENT,        // Which flavor? Native, Greek, Egypt
+        MEDIEVAL,       // Swords, horses, filth, religion, castles
+        WESTERN,        // Wild wild west
+        INDUSTRIAL,     // Early 1900s
+        PREMODERN,      // 50s, 60s, 70s, or 80s...whichever people most want to see (probably 50s)
+        MODERN,         // Today + 10-20 years
+        FUTURE,         // Cyberpunk style
+        WASTELAND,      // To be implemented much later
     }
 }
 
