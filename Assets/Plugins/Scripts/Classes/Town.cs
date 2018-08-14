@@ -17,7 +17,7 @@ public class Town : Region{
     /// Constructs a Town object based on a World
     /// </summary>
     /// <param name="world">World this town will live in</param>
-	public Town(World world)
+	public Town(World world) : base(world.Seed)
     {
         World = world;
     }

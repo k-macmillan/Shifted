@@ -1,23 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using MathNet.Numerics.Distributions;
+using System;
 
 public class Test : MonoBehaviour {
     public List<LandLot> LandLots { get; private set; }
 
     // Use this for initialization
     void Start () {
-        Amiability.Amiability amiability = new Amiability.Amiability(0); //(int)System.DateTime.Now.Ticks & 0x0000FFFF
-        //Debug.Log("Level: " + amiability.AmiabilityLevel);
-
-
-        List<Amiability.AmiabilityLevel> list = amiability.GetBiasedAmiabilityList(Amiability.AmiabilityLevel.FRIENDLY, 700);
-
-        foreach (Amiability.AmiabilityLevel lvl in list)
-        {
-            Debug.Log("Level: " + lvl);
-        }
-
+        World world = new World((int)DateTime.Now.Ticks & 0x0000FFFF);
     }
 	
 	// Update is called once per frame

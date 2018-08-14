@@ -9,7 +9,7 @@ using UnityEngine;
 public class World : Region {
        
 
-    public World(int seed)
+    public World(int seed) : base(seed)
     {
         Debug.Log(this.ToString());
     }

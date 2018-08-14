@@ -33,7 +33,7 @@ public class Wealth {
     public Wealth(int seed, TechLevel techLevel, UInt64 maxWealth)
     {
         randSeed = new SystemRandomSource(seed);
-        FillDistribution(seed, techLevel);
+        FillDistribution(techLevel);
         Weight = betaDist.Sample();
         RegionWealth = (UInt64)(Weight * maxWealth);
     }
@@ -45,43 +45,9 @@ public class Wealth {
     /// </summary>
     /// <param name="seed">Seed based on player and slice</param>
     /// <param name="techLevel">Region's tech level</param>
-    private void FillDistribution(int seed, TechLevel techLevel)
+    private void FillDistribution(TechLevel techLevel)
     {
-        // Beta distribution shape params
-        double a = 0.0d;
-        double b = 0.0d;
-
-        switch (techLevel) {
-            case TechLevel.ANCIENT:
-                a = 1.0d;
-                b = 100.0d;
-                break;
-            case TechLevel.MEDIEVAL:
-                a = 1.0d;
-                b = 60.0d;
-                break;
-            case TechLevel.INDUSTRIAL:
-                a = 1.0d;
-                b = 9.0d;
-                break;
-            case TechLevel.PREMODERN:
-                a = 2.5d;
-                b = 6.0d;
-                break;
-            case TechLevel.MODERN:
-                a = 8.0d;
-                b = 4.0d;
-                break;
-            case TechLevel.FUTURE:
-                a = 100.0d;
-                b = 1.0d;
-                break;
-            default:
-                a = 50.0d;
-                b = 50.0d;
-                break;
-        }
-
-        betaDist = new Beta(a, b, randSeed);
+        Tuple<double, double> alphaBeta = BetaTechDist.GetDistributionAlphaBeta(techLevel);
+        betaDist = new Beta(alphaBeta.Item1, alphaBeta.Item2, randSeed);
     }
 }

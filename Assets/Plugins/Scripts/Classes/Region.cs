@@ -5,16 +5,19 @@ using UnityEngine;
 /// Stores region information
 /// </summary>
 abstract public class Region {
-    
+
+    public int Seed { get; private set; } = 2;
+
     /// <summary>
     /// Population of a region
     /// </summary>
-    public UInt64 Population { get; set; } = 7584821144;
+    //public UInt64 Population { get; set; } = 7584821144;
 
     /// <summary>
     /// Wealth of a region
     /// </summary>
-    public UInt64 Wealth { get; set; } = 100000000000000; // 100 trillion...projected 2025 world wealth
+    //public UInt64 Wealth { get; set; } = 100000000000000; // 100 trillion...projected 2025 world wealth
+    public Wealth Wealth { get; private set; }
 
 
     /*  Income is a shifted normal distribution (kind of) with a spike at the highest percentage. I struggled to find the raw data so I could draw 
@@ -58,6 +61,10 @@ abstract public class Region {
 
     // Requires constructing
 
+    public Population Population { get; private set; }
+
+    public Amiability.Amiability Amiability { get; private set; }
+
     /// <summary>
     /// Racial makeup of this region
     /// </summary>
@@ -83,16 +90,23 @@ abstract public class Region {
     /// </summary>
     public double Slice { get; set; }
 
-    public Region()
+    public Region(int seed)
     {
-        MockInstantiate();
+        Seed = seed;
+        MockInstantiate(100000000000000);
     }
 
     /// <summary>
     /// This is a mock function. 
     /// </summary>    
-    virtual public void MockInstantiate()
+    virtual public void MockInstantiate(UInt64 maxWealth)
     {
+        /**** ORDER IS ESSENTIAL ****/
+        TechLevel = Tech.TechLevel.WASTELAND;  // Need to determine how to set this
+        Wealth = new Wealth(Seed, TechLevel, maxWealth);
+        Amiability = new Amiability.Amiability(Seed);
+        Population = new Population(this);          // Has to come after Wealth and Amiability are set because it is dependent on those
+
         RaceMakeup = new RaceMakeup(WorldCulture);
         Weather = new Weather.Weather();
         Flora = new Flora(Weather);
@@ -101,16 +115,17 @@ abstract public class Region {
 
     public override String ToString()
     {
-        string pop = String.Format("\nPopulation:    {0:N0}", Population);
-        string wealth = String.Format("\nWealth:        ${0:N2}", Wealth);
+        string pop = String.Format("\nPopulation:    {0:N0}", Population.Pop);
+        string wealth = String.Format("\nWealth:        ${0:N2}", Wealth.RegionWealth);
         string income = String.Format("\nIncome:        ${0:N2}", Income);
         string distance = String.Format("\nDistFrmCntr:   {0:f6}", DistanceFromCenter);
 
         string printstr = "Region Information:" +
             pop +
-            wealth + 
-            income + 
-            //"\nAmiability:    " + Amiability +
+            wealth +
+            "\nWealthWeight:  " + Wealth.Weight +
+            income +
+            "\nAmiability:    " + Amiability.AmiabilityLevel +
             "\nNatResources:  " + NatResources +
             "\nTechLevel:     " + TechLevel +
             "\nWorldCulture:  " + WorldCulture +
