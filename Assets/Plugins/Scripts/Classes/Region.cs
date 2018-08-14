@@ -28,7 +28,7 @@ abstract public class Region {
     /// <summary>
     /// How friendly a region is
     /// </summary>
-    public Amiability Amiability { get; set; } = Amiability.NEUTRAL;
+    //public Amiability Amiability { get; set; } = Amiability.NEUTRAL;
 
     /// <summary>
     /// Natural resources available to a region
@@ -110,7 +110,7 @@ abstract public class Region {
             pop +
             wealth + 
             income + 
-            "\nAmiability:    " + Amiability +
+            //"\nAmiability:    " + Amiability +
             "\nNatResources:  " + NatResources +
             "\nTechLevel:     " + TechLevel +
             "\nWorldCulture:  " + WorldCulture +
