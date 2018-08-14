@@ -8,9 +8,10 @@ public class Test : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Amiability.Amiability amiability = new Amiability.Amiability(0); //(int)System.DateTime.Now.Ticks & 0x0000FFFF
-        Debug.Log("Level: " + amiability.AmiabilityLevel);
+        //Debug.Log("Level: " + amiability.AmiabilityLevel);
 
-        List<Amiability.AmiabilityLevel> list = amiability.GetAmiabilityList(700);
+
+        List<Amiability.AmiabilityLevel> list = amiability.GetBiasedAmiabilityList(Amiability.AmiabilityLevel.FRIENDLY, 700);
 
         foreach (Amiability.AmiabilityLevel lvl in list)
         {
