@@ -7,6 +7,7 @@ using UnityEngine;
 abstract public class Region {
 
     public int Seed { get; private set; } = 42;
+    public UInt64 MaxPop { get; private set; }
     
     /*  Income is a shifted normal distribution (kind of) with a spike at the highest percentage. I struggled to find the raw data so I could draw 
      *  appropriate standard deviation and distribution representation.
@@ -85,8 +86,9 @@ abstract public class Region {
     /// </summary>
     public double Slice { get; set; }
 
-    public Region(int seed)
+    public Region(int seed, UInt64 maxPop)
     {
+        MaxPop = maxPop;
         Seed = seed;
         MockInstantiate(100000000000000);
     }

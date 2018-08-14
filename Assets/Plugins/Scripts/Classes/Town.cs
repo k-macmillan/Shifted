@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Town : Region{
 
@@ -17,7 +18,7 @@ public class Town : Region{
     /// Constructs a Town object based on a World
     /// </summary>
     /// <param name="world">World this town will live in</param>
-	public Town(World world) : base(world.Seed)
+	public Town(World world, UInt64 maxTownPop) : base(world.Seed, maxTownPop)
     {
         World = world;
     }

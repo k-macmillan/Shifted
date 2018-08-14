@@ -3,7 +3,7 @@ using MathNet.Numerics.Distributions;
 using MathNet.Numerics.Random;
 
 using System;
-
+using UnityEngine;
 
 public class Population  {
     // https://en.wikipedia.org/wiki/World_population_estimates#Historical_population inspiration
@@ -16,8 +16,8 @@ public class Population  {
 
 
 
-    private const UInt64 maxPop = 20000000000;          // 20,000,000,000
-    private const UInt64 minPop = 300000000;            // 300,000,000 estimated population at 1 C.E. 1.5% of our maxPop    
+    private UInt64 maxPop;                              // 20,000,000,000 for world
+    private UInt64 minPop;                              // 300,000,000 estimated population at 1 C.E. 1.5% of our maxPop    
     private const float techMultiplier = 0.60f;         // Tech, by far, has the largest impact on population
     private const float amiableMultiplier = 0.285f;     // Friendly societies will have more population than hostile ones
     private const float wealthMultiplier = 0.10f;       // Wealth should influnce max population
@@ -30,7 +30,10 @@ public class Population  {
 
     public Population(Region region)
     {
+        
         Region = region;
+        maxPop = Region.MaxPop;
+        minPop = (UInt64)(maxPop * 0.015f);
         Pop = minPop;
 
         ApplyWealthPop();
