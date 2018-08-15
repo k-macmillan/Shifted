@@ -1,46 +1,82 @@
-﻿
+﻿using MathNet.Numerics.Distributions;
+using MathNet.Numerics.Random;
+using System.Collections.Generic;
+using System.Reflection;
+using UnityEngine;
+using static Common.Extensions;
+
 /// <summary>
 /// Stores makeup of race for the region
 /// </summary>
 public class RaceMakeup  {
 
-    // Pulled from: https://en.wikipedia.org/wiki/Race_and_ethnicity_in_the_United_States
-    public float White { get; set; } = 0.63f;           // 17.1% German, 12% Irish
-    public float Black { get; set; } = 0.126f;
-    public float Asian { get; set; } = 0.048f;          // Includes those from India
-    public float NativeAmerican { get; set; } = 0.011f; // Includes Hawaiians    
-    public float TwoRaces { get; set; } = 0.029f;
-    public float Other { get; set; } = 0.062f;
-    public float Hispanic { get; set; } = 0.094f;       // Scalped from White
+    private SystemRandomSource randSeed;
+    //private DiscreteUniform uniformDist;
 
 
-    /// <summary>
-    /// Takes a WorldCulture and generates a race makeup based on the culture.
-    /// </summary>
-    /// <param name="culture">Primary culture of this race</param>
-    public RaceMakeup(Culture.WorldCulture culture)
+    private int Seed { get; set; }
+
+    public float White { get; protected set; }
+    public float Black { get; protected set; }
+    public float Asian { get; protected set; }
+    public float NativeAmerican { get; protected set; }
+    public float Hispanic { get; protected set; }
+    
+
+
+
+    public RaceMakeup(int seed)
     {
         // Takes the "world culture" and generates a race makeup based on culture
+        Seed = seed;
+        SetRaceMakup();
     }
 
-    /// <summary>
-    /// Takes a WorldCulture and generates a race makeup based on the culture.
-    /// </summary>
-    /// <param name="PlayerSeed">Uses PlayerSeed to generate a race makeup</param>
-    public RaceMakeup(int PlayerSeed)
+
+    private void SetRaceMakup()
     {
-        // Takes the player seed and generates a race makeup
+        var properties = this.GetType().GetProperties();
+        List<PropertyInfo> attribs = new List<PropertyInfo>(properties.Length);
+
+        foreach (var prop in properties)
+        {
+            if (prop.PropertyType == typeof(float))
+            {
+                attribs.Add(prop);
+            }
+        }
+        randSeed = new SystemRandomSource(Seed);
+
+        ShuffleSetValue(ref attribs);
+    }
+
+    private void ShuffleSetValue(ref List<PropertyInfo> list)
+    {
+        // Shuffle attributes around
+        list.Shuffle(randSeed);
+        var dist = GetNormalDistribution(randSeed);
+        for (int i = 0; i < list.Count; ++i)
+        {
+            list[i].SetValue(this, dist[i]);
+        }
+    }
+
+    private void PrintAttribs()
+    {
+        var newProperties = GetType().GetProperties();
+        foreach (PropertyInfo p in newProperties)
+        {
+            Debug.Log("A: " + p.Name + "\tValue: " + p.GetValue(this).ToString());
+        }
     }
 
     public override string ToString()
     {
         return "RaceMakeup:" +
-            "\nWhite:         " + White +
-            "\nBlack:         " + Black +
-            "\nAsian:         " + Asian +
-            "\nNativeAmrcn:   " + NativeAmerican +
-            "\nTwoRaces:      " + TwoRaces +
-            "\nOther:         " + Other +
-            "\nHispanic:      " + Hispanic;        
+            "\n\tWhite:         " + White +
+            "\n\tBlack:         " + Black +
+            "\n\tAsian:         " + Asian +
+            "\n\tNativeAmrcn:   " + NativeAmerican +
+            "\n\tHispanic:      " + Hispanic;        
     }
 }

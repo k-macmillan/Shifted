@@ -20,8 +20,8 @@ public class Flora  {
 
     public override string ToString()
     {
-        string density = String.Format("\nDensity:   {0:f6}", Density);
-        string diversity = String.Format("\nDensity:   {0:f6}", Diversity);
+        string density = String.Format("\n\tDensity:   {0:f6}", Density);
+        string diversity = String.Format("\n\tDiversity:   {0:f6}", Diversity);
 
         return "Flora:" +
             density +

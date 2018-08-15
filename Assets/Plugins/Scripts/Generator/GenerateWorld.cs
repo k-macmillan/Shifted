@@ -14,8 +14,6 @@ public class GenerateWorld {
     public GenerateWorld()
     {
         
-        World = new World(seed);
-        World.RaceMakeup = new RaceMakeup(World.WorldCulture);
         Generate();
 
     }

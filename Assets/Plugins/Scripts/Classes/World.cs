@@ -12,7 +12,7 @@ public class World : Region {
 
     public World(int seed) : base(seed, maxWorldPop)
     {
-        Debug.Log(this.ToString());
+        //Debug.Log(this.ToString());
     }
 	
 }

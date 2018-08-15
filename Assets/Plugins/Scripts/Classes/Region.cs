@@ -18,19 +18,9 @@ abstract public class Region {
     public UInt32 Income { get; set; } = 45000; // https://en.wikipedia.org/wiki/Household_income_in_the_United_States#Household_income_and_demographics (126.22 million households)
 
     /// <summary>
-    /// Natural resources available to a region
-    /// </summary>
-    public NatResources NatResources { get; set; } = NatResources.NORMAL;
-
-    /// <summary>
     /// Tech level of this region
     /// </summary>
     public Tech.TechLevel TechLevel { get; set; } = Tech.TechLevel.MODERN;
-
-    /// <summary>
-    /// Culture type of this region
-    /// </summary>
-    public Culture.WorldCulture WorldCulture { get; set; } = Culture.WorldCulture.CURRENT;
 
     /// <summary>
     /// Radians of separation between this region and the center region
@@ -100,12 +90,12 @@ abstract public class Region {
     {
         /**** ORDER IS ESSENTIAL ****/
         Amiability = new Amiability.Amiability(Seed);       // Will have a bearing on TechLevel
-        TechLevel = Tech.TechLevel.MODERN;                  // Need to determine how to set this
+        TechLevel = Tech.TechLevel.WESTERN;                  // Need to determine how to set this
         Wealth = new Wealth(Seed, TechLevel, maxWealth);    // Dependent on TechLevel
         
         Population = new Population(this);                  // Dependent on Tech, Amiability, and Wealth
 
-        RaceMakeup = new RaceMakeup(WorldCulture);
+        RaceMakeup = new RaceMakeup(Seed);
         Weather = new Weather.Weather();
         Flora = new Flora(Weather);
         Fauna = new Fauna(Weather);
@@ -122,10 +112,9 @@ abstract public class Region {
             pop +
             wealth +
             income +
-            "\nAmiability:    " + Amiability.AmiabilityLevel +
-            "\nNatResources:  " + NatResources +
+            "\nAmiability:    " + Amiability.AmiabilityLevel +            
             "\nTechLevel:     " + TechLevel +
-            "\nWorldCulture:  " + WorldCulture +
+            //"\nWorldCulture:  " + WorldCulture +
             distance + 
             "\nNclrWstlnd:    " + NuclearWasteland +
             "\n" + RaceMakeup.ToString() +
